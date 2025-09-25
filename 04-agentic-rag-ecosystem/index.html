@@ -1,0 +1,952 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+      
+        <link rel="prev" href="../03-memory-the-agents-brain/">
+      
+      
+        <link rel="next" href="../05-multimodal-agents/">
+      
+      
+      <link rel="icon" href="../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.6.20">
+    
+    
+      
+        <title>Day 04 - Agentic RAG Ecosystem - Agents in Action</title>
+      
+    
+    
+      <link rel="stylesheet" href="../assets/stylesheets/main.e53b48f4.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+    
+  </head>
+  
+  
+    <body dir="ltr">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#day-4-agentic-rag-ecosystem" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href=".." title="Agents in Action" class="md-header__button md-logo" aria-label="Agents in Action" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Agents in Action
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Day 04 - Agentic RAG Ecosystem
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href=".." title="Agents in Action" class="md-nav__button md-logo" aria-label="Agents in Action" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    Agents in Action
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href=".." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Home
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    7-Day Agents in Action Series
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            7-Day Agents in Action Series
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../01-agents-are-here-and-they-are-staying/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Day 01 - Agents are here and they are staying
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../02-how-agents-think/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Day 02 - How Agents Think
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../03-memory-the-agents-brain/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Day 03 - Memory - The Agent's Brain
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    Day 04 - Agentic RAG Ecosystem
+    
+  </span>
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    Day 04 - Agentic RAG Ecosystem
+    
+  </span>
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#powering-agents-with-real-world-knowledge" class="md-nav__link">
+    <span class="md-ellipsis">
+      Powering Agents with Real-World Knowledge
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#welcome-to-day-4-of-the-7-day-agents-in-action-series" class="md-nav__link">
+    <span class="md-ellipsis">
+      Welcome to Day 4 of the 7-Day Agents in Action Series.
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../05-multimodal-agents/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Day 05 - Multimodal Agents
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../06-scaling-agents-architectures-with-google-adk-a2a-and-mcp/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Day 06 - Scaling Agents - Architectures with Google ADK, A2A, and MCP
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../07-fully-functional-agent-loop/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Day 07 - Fully Functional Agent Loop
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    10-Day Agents in Action Series
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            10-Day Agents in Action Series
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../day-1-from-llms-to-ai-agents.md" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Day 01 - From LLMs to AI Agents
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../day-2-building-your-first-ai-sales-agent.md" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Day 02 - Building Your First AI Sales Agent
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../day-3-linkedin-to-youtube-agent.md" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Day 03 - An Agent that Builds LinkedIn Posts Directly from YouTube Videos
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../day-4-the-unofficial-airbnb-ai-agent.md" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Day 04 - The Unofficial Airbnb AI Agent
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../day-5-sales-prospect-and-deep-research-finance-agent.md" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Day 05 - Build a Sales Prospect and A Deep Research Finance Agent
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../day-6-the-ultimate-ai-research-assistant.md" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Day 06 - The Ultimate AI Research Assistant
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../day-7-the-ultimate-ai-finance-agent.md" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Day 07 - The Ultimate AI Finance Agent
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../day-8-the-ultimate-ai-blog-post-agent.md" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Day 08 - The Ultimate AI Blog Post Agent
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#powering-agents-with-real-world-knowledge" class="md-nav__link">
+    <span class="md-ellipsis">
+      Powering Agents with Real-World Knowledge
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#welcome-to-day-4-of-the-7-day-agents-in-action-series" class="md-nav__link">
+    <span class="md-ellipsis">
+      Welcome to Day 4 of the 7-Day Agents in Action Series.
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+
+<h1 id="day-4-agentic-rag-ecosystem">Day 4: Agentic RAG Ecosystem</h1>
+<h3 id="powering-agents-with-real-world-knowledge">Powering Agents with Real-World Knowledge</h3>
+<p><a href="https://github.com/hamzafarooq"><strong>Hamza Farooq</strong></a> and <a href="https://github.com/JayaRajwani"><strong>Jaya Rajwani</strong></a></p>
+<h2 id="welcome-to-day-4-of-the-7-day-agents-in-action-series">Welcome to Day 4 of the 7-Day Agents in Action Series.</h2>
+<p>Hi!</p>
+<p>My name is <a href="https://www.linkedin.com/in/hamzafarooq/">Hamza</a>, and I am so excited to welcome you our new course. Joining me is <a href="https://www.linkedin.com/in/jayarajwani/">Jaya</a>, who is a ninja in Agents!</p>
+<p>In these 7 sessions we will uncover all we can about Agents, what they are, how they work and the what’s really behind all this hype?</p>
+<p>In the first three days, we moved from big picture to architecture.</p>
+<p><a href="link">Day 1</a> clarified what sets agents apart from GenAI,</p>
+<p><a href="link">Day 2</a> dug into how agents think and</p>
+<p><a href="link">Day 3</a> explored memory and how agents remember.</p>
+<p>Together, these layers lay the foundation for what comes next: <strong>retrieval-augmented generation</strong>, or RAG - the key to making agents both smart and informed.</p>
+<p><img alt="RAG" src="../images/rag.png" /></p>
+<p>Large Language Models (LLMs) are powerful, but they come with a major limitation: their knowledge is frozen in time. Once trained, they can’t access new information unless retrained. That’s where Retrieval-Augmented Generation (RAG) comes in.</p>
+<p>RAG allows LLMs to access external sources of truth in real-time. Instead of guessing or hallucinating answers, RAG-powered agents can "look things up" before responding. This makes them ideal for high-stakes applications like healthcare, finance, legal, and customer support.</p>
+<p>``<strong><em>"Knowledge isn’t static an so shouldn’t be your AI”</em></strong></p>
+<p><img alt="Knowledge Graphs &amp; LLMs" src="images/knowledge-graphs" /></p>
+<p>
+  <em>Source: <a href="https://neo4j.com/blog/developer/knowledge-graph-llm-multi-hop-reasoning/">Knowledge Graphs & LLMs: Multi-Hop Question Answering</a></em>
+</p>
+
+<h1 id="but-what-is-rag"><strong>BUT!!!! WHAT IS RAG??</strong></h1>
+<p>Retrieval-Augmented Generation is an AI architecture that combines retrieval systems with generative models. The retrieval system fetches relevant documents or facts from a knowledge base, and the language model uses that context to generate an informed response.</p>
+<p>This architecture stands in contrast to the so-called "closed-book" LLMs that rely only on what they were trained on. With RAG, we get "open-book" models that can dynamically access knowledge.</p>
+<p><img alt="Advanced RAG" src="../images/advanced-rag.png" /></p>
+<p>
+  <em>Source: <a href="https://towardsdatascience.com/beyond-naive-rag-advanced-techniques-for-building-smarter-and-reliable-ai-systems-c4fbcf8718b8/">Beyond Naive RAG: Advanced Techniques for Building Smarter and Reliable AI Systems</a></em>
+</p>
+
+<p><strong>Example</strong>: Instead of asking a model to summarize GDPR from memory, a RAG system retrieves the actual GDPR document and generates the summary from it.</p>
+<p>To understand RAG in depth, let’s cover the core components of RAG.</p>
+<h2 id="core-components-of-a-rag-system"><strong>Core Components of a RAG System</strong></h2>
+<h3 id="1-retriever"><strong>1. Retriever:</strong></h3>
+<p>The retriever component is responsible for identifying and returning relevant context from a large corpus of documents. It typically consists of:</p>
+<ul>
+<li><strong>Embedding Model</strong>: Converts queries and documents into dense vector representations using pretrained models like <strong>BERT</strong> [<a href="https://arxiv.org/abs/1810.04805">Devlin et al., 2018</a>], <strong>MiniLM</strong> [<a href="https://arxiv.org/abs/2002.10957">Wang et al., 2020</a>], or domain-specific models like <strong>SciBERT</strong> [<a href="https://arxiv.org/abs/1903.10676">Beltagy et al., 2019</a>].</li>
+<li><strong>Vector Index</strong>: These vectors are stored in a specialized vector index such as <strong>FAISS</strong> (Facebook AI Similarity Search) [<a href="https://arxiv.org/abs/1702.08734">Johnson et al., 2017</a>] for efficient retrieval.</li>
+<li><strong>Similarity Search</strong>: Matches query embeddings against stored vectors using distance metrics like cosine similarity or L2 (Euclidean) distance. Approximate Nearest Neighbor (ANN) algorithms like <strong>HNSW</strong> [<a href="https://arxiv.org/abs/1603.09320">Malkov &amp; Yashunin, 2018</a>] are used to retrieve millions of documents.</li>
+</ul>
+<p><img alt="FAISS" src="../images/faiss.png" /></p>
+<p>
+  <em>Source: <a href="https://medium.com/@pankaj_pandey/faiss-efficient-similarity-search-and-clustering-of-dense-vectors-dace1df1e235">FAISS: Efficient Similarity Search and Clustering of Dense Vectors</a></em>
+</p>
+
+<h3 id="2-generator"><strong>2. Generator</strong></h3>
+<p>The generator is typically an autoregressive language model (e.g., GPT, T5, Claude) that receives both the original query and the retrieved context and generates a natural language response. The quality of generation depends on:</p>
+<ul>
+<li><strong>Prompt Engineering</strong>: Ensuring the retrieved documents are properly formatted and injected into the prompt.</li>
+<li><strong>Context Length</strong>: The model's ability to handle long contexts (e.g., 4k vs. 32k tokens) impacts how many documents can be used.</li>
+<li><strong>Relevance Weighting</strong>: Some architectures (e.g., Fusion-in-Decoder [<a href="https://arxiv.org/abs/2007.01282">Izacard &amp; Grave, 2020</a>]) weigh multiple retrieved documents during generation to enhance relevance.</li>
+</ul>
+<h3 id="3-chunking"><strong>3. Chunking</strong></h3>
+<p>Chunking is the process of breaking large documents into smaller, manageable pieces. Because LLMs cannot process entire datasets at once, chunking enables targeted, efficient retrieval of relevant information. It plays a critical role in improving the accuracy, scalability, and usefulness of responses generated by RAG systems. These are some types of chunking:</p>
+<ul>
+<li><strong>Fixed-Size Chunking</strong> - Specified number of characters, regardless of their content or structure</li>
+<li><strong>Recursive Chunking</strong> - Divides the input text into smaller chunks in a hierarchical and iterative manner using a set of separators (Operates recursively until desired size or structure is achieved)</li>
+<li><strong>Document Based Chunking</strong> - Split a document based on its inherent structure</li>
+<li><strong>Semantic Chunking</strong> - Divides the text into meaningful, semantically complete chunks</li>
+<li><strong>Agentic Chunking</strong> - LLM to determine how much and what text to include in a chunk based on context</li>
+</ul>
+<p>Read my detailed article on chunking: <a href="https://traversaal-ai.notion.site/Chunking-the-feature-engineering-of-unstructured-data-1e59a2e5c4a6804ba246d3e6f9b9b3ad">Chunking - the feature engineering of unstructured data</a></p>
+<h3 id="4-similarity-metrics"><strong>4. Similarity Metrics</strong></h3>
+<p>Similarity metrics are what allow RAG systems to identify which chunks of data are most relevant to a user query. These metrics determine how "close" a query vector is to document vectors in the embedding space, not in terms of literal keywords, but in meaning. There are two main types of similarity metrics used in vector search systems:</p>
+<ul>
+<li><strong>Cosine Similarity</strong>: Measures angle between vectors; scale-invariant. It is calculated by taking the dot product of the two vectors and then dividing by the product of their magnitudes.</li>
+</ul>
+<p><img alt="Cosine Similarity" src="../images/cosine-similarity.png" /></p>
+<ul>
+<li><strong>Euclidean Distance</strong>: Measures straight-line distance between all given points between our query vector, and the vectors loaded into the index. It’s simple, very accurate, but not too fast.</li>
+</ul>
+<p><img alt="Euclidean Distance" src="../images/euclidean-distance.png" /></p>
+<p>Once we know the components that make up a RAG, it is also important to understand how to integrate these components t develop scalable, enterprise level RAG architectures.</p>
+<h2 id="types-of-rag-systems"><strong>Types of RAG Systems</strong></h2>
+<p>Not all RAG systems are built the same. Depending on the complexity of the task, the nature of the data, and the design goals of the agent, RAG can take on different architectural forms. Some systems rely on simple, one-shot retrieval to generate answers quickly. Others chain multiple retrievals, use external tools, or route queries between specialized agents. These different types exist because the needs of a customer support assistant, a compliance checker, and a multimodal tutor vary wildly. Choosing the right type is about balancing cost, latency, relevance, and reasoning depth. Some popular RAG architecture are as as follows:</p>
+<h3 id="1-naive-rag"><strong>1. Naive RAG</strong></h3>
+<ul>
+<li>The simplest form: retrieve documents once and pass them directly to the generator.</li>
+<li>No reranking or query refinement.</li>
+<li>Best suited for simple, high-precision tasks like FAQs.</li>
+</ul>
+<h3 id="2-retrieve-and-rerank"><strong>2. Retrieve-and-Rerank</strong></h3>
+<ul>
+<li>First retrieves a large set of documents, then uses a reranker model (e.g., a cross-encoder like BERT) to score and reorder them.</li>
+<li>Ensures the most relevant content is passed to the generator.</li>
+<li>Improves performance in dense, noisy corpora.</li>
+</ul>
+<h3 id="3-multimodal-rag"><strong>3. Multimodal RAG</strong></h3>
+<ul>
+<li>Incorporates image, video, or audio embeddings alongside text.</li>
+<li>Requires multimodal retrievers and generators (e.g., BLIP, Flamingo).</li>
+<li>Useful in domains like medical diagnostics, surveillance, or edtech.</li>
+</ul>
+<h3 id="4-graph-rag"><strong>4. Graph RAG</strong></h3>
+<ul>
+<li>Organizes document relationships in the form of a knowledge graph.</li>
+<li>Uses structured nodes and edges for multi-hop reasoning.</li>
+<li>Particularly useful for structured decision support systems and compliance tools.</li>
+</ul>
+<h3 id="5-hybrid-rag"><strong>5. Hybrid RAG</strong></h3>
+<ul>
+<li>Combines multiple retrievers or retrieval strategies (e.g., keyword + vector).</li>
+<li>May retrieve from structured databases, APIs, and unstructured corpora.</li>
+<li>Can be used for tasks requiring both logic and language understanding.</li>
+</ul>
+<h3 id="6-agentic-rag-router"><strong>6. Agentic RAG (Router)</strong></h3>
+<ul>
+<li>Uses an agent to route the query to the best retriever or model.</li>
+<li>Enables intelligent dispatching based on domain, task type, or input format.</li>
+<li>Can reduce latency and improve specialization.</li>
+</ul>
+<h3 id="7-agentic-rag-multi-agent"><strong>7. Agentic RAG (Multi-Agent)</strong></h3>
+<ul>
+<li>Employs multiple cooperating agents, each responsible for a specific tool or knowledge base (e.g., Vector DB A, web search, Slack, Gmail).</li>
+<li>Supports dynamic tool use and reasoning chains.</li>
+<li>Powerful in enterprise settings or when dealing with fragmented data sources.</li>
+</ul>
+<p><img alt="RAG Architectures" src="../images/rag-architectures.png" /></p>
+<h2 id="real-world-applications-of-rag-by-domain"><strong>Real-World Applications of RAG by Domain</strong></h2>
+<p>Isn’t RAG quite cool? Want to know something more cool? It’s use cases. These architectures are being adopted by companies to solve real problems which serve real customers. I compiled a list of such examples for you across multiple indusctires.</p>
+<p><strong>Healthcare</strong> - <a href="https://www.mayoclinicplatform.org/">Mayo Clinic</a>'s internal clinical decision support tools combine LLMs with structured and unstructured knowledge sources to augment physician decision-making. Their platform, Mayo Clinic Platform_Connect, facilitates retrieval of patient-specific content and up-to-date clinical trial information.</p>
+<p><strong>Legal</strong> - <a href="https://legal.thomsonreuters.com/en/products/cocounsel-legal">Casetext</a>, acquired by Thomson Reuters, developed "CoCounsel" - a legal assistant using GPT-4 with retrieval over legal databases, briefs, and case law. It enables tasks like deposition prep and document review with citations.</p>
+<p><strong>Enterprise Knowledge Management</strong> - Atlassian launched "<a href="https://www.atlassian.com/trust/atlassian-intelligence">Atlassian Intelligence</a>," which uses OpenAI models with embedded document retrieval to answer team queries from Jira, Confluence, and other workspace tools.</p>
+<p><strong>Customer Support</strong> - Intercom's <a href="https://fin.ai/?utm_source=google&amp;utm_medium=sem&amp;utm_campaign=22485552221&amp;utm_term=intercom%20fin%20ai&amp;utm_ad_collection=182654069671&amp;utm_ad=753184554147&amp;utm_geo=9077141&amp;gad_source=1&amp;gad_campaignid=22485552221&amp;gbraid=0AAAAAoKeDyJlZHWG7s0dl1Ry9YZzi5KMy&amp;gclid=Cj0KCQjwuvrBBhDcARIsAKRrkjeskoVCHfXquqoYtsNTNrMdCgOOIQaH39-5BaeGeeZO3lVAKHAvoIoaArRrEALw_wcB">Fin AI</a> agent uses vector search over past tickets, help docs, and support articles to deliver immediate, accurate answers to users. It’s a live production deployment of RAG for customer service.</p>
+<p>RAG transforms language models from static encyclopedias into dynamic knowledge workers. It is more than just a plug-in to fix hallucinations - it's a paradigm shift. It redefines how LLMs interact with knowledge: not by remembering everything, but by knowing where to look.</p>
+<p>Next up, we take this further in <strong>Day 5: Multimodal Agents – Going Beyond Text</strong> — where agents go from understanding only language to also interpreting tables, images, documents, and more. You’ll learn how to design high-level multimodal architectures, why vision + language agents are shaping the future, and how structured data fits into agent workflows.</p>
+<h1 id="want-to-dive-deeper"><strong>WANT TO DIVE DEEPER?</strong></h1>
+<p>Check out my AI Agents for Enterprise course on <a href="https://maven.com/boring-bot/ml-system-design">Maven</a> if you are interested to be a part of something bigger.</p>
+<p><img alt="AI Bootcamp" src="../images/ai-bootcamp.png" /></p>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      <script id="__config" type="application/json">{"base": "..", "features": [], "search": "../assets/javascripts/workers/search.973d3a69.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+    
+    
+      <script src="../assets/javascripts/bundle.f55a23d4.min.js"></script>
+      
+    
+  </body>
+</html>

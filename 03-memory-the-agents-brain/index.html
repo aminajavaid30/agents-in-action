@@ -1,0 +1,1122 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+      
+        <link rel="prev" href="../02-how-agents-think/">
+      
+      
+        <link rel="next" href="../04-agentic-rag-ecosystem/">
+      
+      
+      <link rel="icon" href="../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.6.20">
+    
+    
+      
+        <title>Day 03 - Memory - The Agent's Brain - Agents in Action</title>
+      
+    
+    
+      <link rel="stylesheet" href="../assets/stylesheets/main.e53b48f4.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+    
+  </head>
+  
+  
+    <body dir="ltr">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#day-3-memory-the-agents-brain" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href=".." title="Agents in Action" class="md-header__button md-logo" aria-label="Agents in Action" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Agents in Action
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Day 03 - Memory - The Agent's Brain
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href=".." title="Agents in Action" class="md-nav__button md-logo" aria-label="Agents in Action" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    Agents in Action
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href=".." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Home
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    7-Day Agents in Action Series
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            7-Day Agents in Action Series
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../01-agents-are-here-and-they-are-staying/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Day 01 - Agents are here and they are staying
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../02-how-agents-think/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Day 02 - How Agents Think
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    Day 03 - Memory - The Agent's Brain
+    
+  </span>
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    Day 03 - Memory - The Agent's Brain
+    
+  </span>
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#we-got-our-agents-to-think-and-remember" class="md-nav__link">
+    <span class="md-ellipsis">
+      We got our agents to think and remember
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#welcome-to-day-3-of-the-7-day-agents-in-action-series" class="md-nav__link">
+    <span class="md-ellipsis">
+      Welcome to Day 3 of the 7-Day Agents in Action Series.
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#why-memory-matters-in-agents" class="md-nav__link">
+    <span class="md-ellipsis">
+      Why Memory Matters in Agents
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#what-kinds-of-memory-do-agents-use" class="md-nav__link">
+    <span class="md-ellipsis">
+      What Kinds of Memory Do Agents Use?
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="What Kinds of Memory Do Agents Use?">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1-working-memory" class="md-nav__link">
+    <span class="md-ellipsis">
+      1. Working Memory:
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-procedural-memory" class="md-nav__link">
+    <span class="md-ellipsis">
+      2. Procedural Memory:
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3-episodic-memory" class="md-nav__link">
+    <span class="md-ellipsis">
+      3. Episodic Memory:
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#4-semantic-memory" class="md-nav__link">
+    <span class="md-ellipsis">
+      4. Semantic Memory:
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#caching-a-practical-subtype-of-memory" class="md-nav__link">
+    <span class="md-ellipsis">
+      Caching: A Practical Subtype of Memory
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#agent-memory-in-practice-how-mem0-powers-recall" class="md-nav__link">
+    <span class="md-ellipsis">
+      Agent Memory in Practice: How Mem0 Powers Recall
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#how-memory-actually-improves-agents" class="md-nav__link">
+    <span class="md-ellipsis">
+      How Memory Actually Improves Agents
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../04-agentic-rag-ecosystem/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Day 04 - Agentic RAG Ecosystem
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../05-multimodal-agents/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Day 05 - Multimodal Agents
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../06-scaling-agents-architectures-with-google-adk-a2a-and-mcp/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Day 06 - Scaling Agents - Architectures with Google ADK, A2A, and MCP
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../07-fully-functional-agent-loop/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Day 07 - Fully Functional Agent Loop
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    10-Day Agents in Action Series
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            10-Day Agents in Action Series
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../day-1-from-llms-to-ai-agents.md" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Day 01 - From LLMs to AI Agents
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../day-2-building-your-first-ai-sales-agent.md" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Day 02 - Building Your First AI Sales Agent
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../day-3-linkedin-to-youtube-agent.md" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Day 03 - An Agent that Builds LinkedIn Posts Directly from YouTube Videos
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../day-4-the-unofficial-airbnb-ai-agent.md" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Day 04 - The Unofficial Airbnb AI Agent
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../day-5-sales-prospect-and-deep-research-finance-agent.md" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Day 05 - Build a Sales Prospect and A Deep Research Finance Agent
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../day-6-the-ultimate-ai-research-assistant.md" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Day 06 - The Ultimate AI Research Assistant
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../day-7-the-ultimate-ai-finance-agent.md" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Day 07 - The Ultimate AI Finance Agent
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../day-8-the-ultimate-ai-blog-post-agent.md" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Day 08 - The Ultimate AI Blog Post Agent
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#we-got-our-agents-to-think-and-remember" class="md-nav__link">
+    <span class="md-ellipsis">
+      We got our agents to think and remember
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#welcome-to-day-3-of-the-7-day-agents-in-action-series" class="md-nav__link">
+    <span class="md-ellipsis">
+      Welcome to Day 3 of the 7-Day Agents in Action Series.
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#why-memory-matters-in-agents" class="md-nav__link">
+    <span class="md-ellipsis">
+      Why Memory Matters in Agents
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#what-kinds-of-memory-do-agents-use" class="md-nav__link">
+    <span class="md-ellipsis">
+      What Kinds of Memory Do Agents Use?
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="What Kinds of Memory Do Agents Use?">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1-working-memory" class="md-nav__link">
+    <span class="md-ellipsis">
+      1. Working Memory:
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-procedural-memory" class="md-nav__link">
+    <span class="md-ellipsis">
+      2. Procedural Memory:
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3-episodic-memory" class="md-nav__link">
+    <span class="md-ellipsis">
+      3. Episodic Memory:
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#4-semantic-memory" class="md-nav__link">
+    <span class="md-ellipsis">
+      4. Semantic Memory:
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#caching-a-practical-subtype-of-memory" class="md-nav__link">
+    <span class="md-ellipsis">
+      Caching: A Practical Subtype of Memory
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#agent-memory-in-practice-how-mem0-powers-recall" class="md-nav__link">
+    <span class="md-ellipsis">
+      Agent Memory in Practice: How Mem0 Powers Recall
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#how-memory-actually-improves-agents" class="md-nav__link">
+    <span class="md-ellipsis">
+      How Memory Actually Improves Agents
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+
+<h1 id="day-3-memory-the-agents-brain">Day 3: Memory — The Agent's Brain</h1>
+<h3 id="we-got-our-agents-to-think-and-remember">We got our agents to think and remember</h3>
+<p><a href="https://github.com/hamzafarooq"><strong>Hamza Farooq</strong></a> and <a href="https://github.com/JayaRajwani"><strong>Jaya Rajwani</strong></a></p>
+<h2 id="welcome-to-day-3-of-the-7-day-agents-in-action-series">Welcome to Day 3 of the 7-Day Agents in Action Series.</h2>
+<p>Hi!</p>
+<p>My name is <a href="https://www.linkedin.com/in/hamzafarooq/">Hamza</a>, and I am so excited to welcome you our new course. Joining me is <a href="https://www.linkedin.com/in/jayarajwani/">Jaya</a>, who is a ninja in Agents!</p>
+<p>In these 7 sessions we will uncover all we can about Agents, what they are, how they work and the what’s really behind all this hype?</p>
+<p>Read: <a href="link">Day 1</a></p>
+<p>Read: <a href="link">Day 2</a></p>
+<p>Before we dive in — <strong>We’ve got a bonus live session</strong> coming up to help you apply what you’re learning in this series. If you're curious about building real-world agents that go beyond the hype, this is for you.</p>
+<p>Sign up here: <a href="https://maven.com/p/075022/design-vertical-ai-agents-that-deliver-results?utm_source=instructor&amp;utm_medium=ll_share_link&amp;ajs_uid=18166">Design Vertical AI Agents that Deliver Results, Beyond Hype</a></p>
+<p><img alt="Develop Enterprise AI Agents" src="../images/develop-enterprise-ai-agents.png" /></p>
+<p><strong>Back to Day 3 of the course….</strong></p>
+<p>In Day 2 of the course <strong>How Agents Think - Types, Behaviors &amp; Design Patterns</strong>, we explored how agents think - from reactive responders to planning strategists and reflective troubleshooters. But there's one critical ingredient those agents need to truly evolve: memory.</p>
+<p>An agent that forgets everything it did five seconds ago can’t grow. It can’t personalize. It can’t even hold a conversation properly.</p>
+<p>That’s where memory comes in. Just like humans, agents need memory to stay coherent, consistent, and context-aware across time. Memory transforms a stateless LLM into a stateful system, one that adapts to you, learns from you, and builds knowledge over time.</p>
+<p><code>"Intelligence without memory is just noise. Real reasoning starts when past context is remembered."</code></p>
+<p><img alt="AI Agents Memory" src="../images/memory.gif" /></p>
+<p>
+  <em><a href="https://www.newsletter.swirlai.com/p/simple-way-to-explain-memory-in-ai">Simple explanation of memory in Agentic Systems</a></em>
+</p>
+
+<p>In this module, we’ll explore the layers of memory, lightweight strategies like caching, and introduce the foundations of retrieval.</p>
+<h2 id="why-memory-matters-in-agents"><strong>Why Memory Matters in Agents</strong></h2>
+<p>Imagine a support agent that forgets your issue every time you write a message. Or a data analyst agent that re-asks what your database schema looks like after every query. Without memory, even the smartest LLM becomes... dumb.</p>
+<p>Memory is what makes agent behavior adaptive. It allows the system to:</p>
+<ul>
+<li>Remember past interactions and preferences</li>
+<li>Track goals and sub-goals across time</li>
+<li>Build knowledge that compounds</li>
+</ul>
+<p>Think of memory as the key to making AI truly intelligent, because it helps them learn context, adapt, and provide personalized responses through short-term (working) memory and the three forms of long-term memory - procedural, semantic, and episodic.</p>
+<p>In short: memory is what lets agents act like intelligent beings, not just parrots.</p>
+<h2 id="what-kinds-of-memory-do-agents-use"><strong>What Kinds of Memory Do Agents Use?</strong></h2>
+<p>Modern agents use multiple layers of memory, each suited for different functions. Here’s how they break down — with simple analogies and real-world use cases:</p>
+<h3 id="1-working-memory">1. <strong>Working Memory</strong>:</h3>
+<ul>
+<li>Temporary, high-speed memory for the current task or prompt cycle</li>
+<li>Holds recent context, tool results, or short chains of reasoning</li>
+<li>Cleared at the end of an interaction or session</li>
+</ul>
+<p><em>Analogy</em>: Like what you hold in your mind while doing mental math</p>
+<p><em>Use case</em>: Storing tool results during a multi-turn plan in a ReAct agent</p>
+<h3 id="2-procedural-memory">2. <strong>Procedural Memory</strong>:</h3>
+<ul>
+<li>Encodes how to do things like how to use a specific API, run a tool, or follow a multi-step process</li>
+<li>Helps agents perform tasks they've been trained or fine-tuned to execute</li>
+</ul>
+<p><em>Analogy</em>: Like muscle memory or following a recipe from habit</p>
+<p><em>Use case</em>: Remembering the steps to install packages or write SQL queries in a coding agent</p>
+<h3 id="3-episodic-memory">3. <strong>Episodic Memory</strong>:</h3>
+<ul>
+<li>Like a journal of the agent’s interactions</li>
+<li>Tracks sequences of actions, user inputs, and system responses over time</li>
+<li>Often used for debugging or improving task continuity</li>
+</ul>
+<p><em>Analogy</em>: Like your browser history or diary</p>
+<p><em>Use case</em>: Recalling past user sessions to personalize future responses</p>
+<h3 id="4-semantic-memory">4. <strong>Semantic Memory</strong>:</h3>
+<ul>
+<li>Stores general knowledge, facts, and conceptual understanding</li>
+<li>Uses meaning-based representation to support flexible recall</li>
+<li>Enables agents to retrieve and relate ideas even if phrased differently</li>
+</ul>
+<p><em>Analogy</em>: Like understanding the concept of gravity — you don’t remember when you learned it, but you know it</p>
+<p><em>Use case</em>: Recalling the definition of “net revenue” even if a user asks about “monthly earnings”</p>
+<p><img alt="Types of Memory" src="../images/types-of-memory.png" /></p>
+<p>
+  <em><a href="https://medium.com/@honeyricky1m3/giving-your-ai-a-mind-exploring-memory-frameworks-for-agentic-language-models-c92af355df06">Giving Your AI a Mind: Exploring Memory Frameworks for Agentic Language Models</a></em>
+</p>
+
+<h2 id="caching-a-practical-subtype-of-memory"><strong>Caching: A Practical Subtype of Memory</strong></h2>
+<p>Caching is often considered a practical subtype of memory — more lightweight and task-specific than deep memory structures. Sometimes agents just need to remember something for a few minutes or avoid repeating a call.</p>
+<p>That’s where <strong>caching</strong> comes in. Think of it as the agent’s sticky note:</p>
+<ul>
+<li>Stores outputs from recent tool calls</li>
+<li>Remembers verified results</li>
+<li>Reuses recent answers to avoid recomputation</li>
+</ul>
+<p>It doesn’t require embeddings or deep reasoning — but it makes agents feel faster, snappier, and more responsive.</p>
+<p><img alt="GPTCache" src="../images/gpt-cache.png" /></p>
+<p>
+  <em><a href="https://github.com/zilliztech/GPTCache">GPTCache GitHub Repository</a></em>
+</p>
+
+<p><strong>When to use caching:</strong></p>
+<ul>
+<li>When you need to reduce redundant tool/API calls</li>
+<li>When agent response time needs to be improved</li>
+<li>When storing complex memory is overkill for a task</li>
+</ul>
+<p>It doesn’t require embeddings or deep reasoning but it makes agents feel faster, snappier, and more responsive, especially in repetitive or low-stakes tasks.</p>
+<h2 id="agent-memory-in-practice-how-mem0-powers-recall"><strong>Agent Memory in Practice: How Mem0 Powers Recall</strong></h2>
+<p>We have discussed how agents need different types of memory - from working memory to episodic and semantic layers. But how does that actually look in a real system? Let’s discuss an example using mem0.</p>
+<p><a href="https://mem0.ai/"><strong>mem0</strong></a> is an open-source memory backend purpose-built for AI agents. Unlike traditional vector stores or databases, mem0 is designed to act like a brain — organizing and retrieving contextual memory such as user preferences, tool outputs, and reasoning traces across sessions.</p>
+<p>It supports multiple types of memory (working, episodic, semantic) and plugs directly into LLM workflows, giving agents continuity, adaptability, and personalization — without needing to build a memory system from scratch.</p>
+<p>This diagram shows how memory fits into the broader agent workflow, with a specific focus on mem0 as the memory layer.</p>
+<p><img alt="mem0" src="../images/mem0.png" /></p>
+<p><strong>What's Happening Here</strong></p>
+<ul>
+<li>When the user makes a request, the agent doesn’t immediately respond.</li>
+<li>Instead, it first checks mem0 memory - a layer that stores:</li>
+<li>User preferences</li>
+<li>Past interactions</li>
+<li>Previously retrieved facts or summaries</li>
+<li>This memory can include working memory (e.g., what tools the agent just used) and episodic memory (e.g., last conversation topics).</li>
+<li>If relevant context exists, it’s passed into the agent’s prompt before a response is generated via OpenAI.</li>
+</ul>
+<p>This gives the LLM the ability to respond with continuity. Without mem0 or a similar system, the agent would forget everything between sessions making it feel shallow and repetitive.</p>
+<h2 id="how-memory-actually-improves-agents"><strong>How Memory Actually Improves Agents</strong></h2>
+<p>Let’s compare two agents.</p>
+<p><strong>Agent CapabilityAgent Without MemoryAgent With MemoryBehavior</strong> Repeats the same mistakesLearns from past inputs and outcomes</p>
+<p><strong>Input Handling</strong> Asks for the same input repeatedlyRemembers past user inputs across turns</p>
+<p><strong>Consistency</strong> Gives inconsistent or conflicting answersMaintains coherent, goal-aligned responses</p>
+<p><strong>Reasoning</strong> Starts from scratch every timeBuilds on prior reasoning and context</p>
+<p><strong>Task Execution</strong> Handles one-off requests without contextFollows through on multi-step goals</p>
+<p><strong>Tool Use Awareness</strong> Doesn’t track what it’s doneKnows which tools it installed or used previously</p>
+<p><em>Example:</em></p>
+<p><code>Imagine a data analyst agent. In round one, it learns your table schema. In round two, it remembers it. By round three, it’s proactively flagging anomalies you didn’t even ask about.</code></p>
+<p>That’s not just helpful - that’s powerful.</p>
+<p><strong>Next Up: RAG (Retrieval-Augmented Generation)</strong> — the engine that lets agents access real-world knowledge beyond their training data. You’ll see how memory + retrieval becomes a superpower, and how it powers truly vertical, intelligent agents. You’ll also learn how tools like embeddings and vector databases let agents understand and retrieve meaning at scale.</p>
+<p>READY TO GO DEEPER?
+Don’t forget to check out my AI Agents for Enterprise course on <a href="https://maven.com/boring-bot/ml-system-design">Maven</a> if you are interested to be a part of something bigger.</p>
+<p><img alt="AI Bootcamp" src="../images/ai-bootcamp.png" /></p>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      <script id="__config" type="application/json">{"base": "..", "features": [], "search": "../assets/javascripts/workers/search.973d3a69.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+    
+    
+      <script src="../assets/javascripts/bundle.f55a23d4.min.js"></script>
+      
+    
+  </body>
+</html>

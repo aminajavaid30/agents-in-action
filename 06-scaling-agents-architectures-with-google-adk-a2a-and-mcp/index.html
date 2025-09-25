@@ -1,0 +1,959 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+      
+        <link rel="prev" href="../05-multimodal-agents/">
+      
+      
+        <link rel="next" href="../07-fully-functional-agent-loop/">
+      
+      
+      <link rel="icon" href="../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.6.20">
+    
+    
+      
+        <title>Day 06 - Scaling Agents - Architectures with Google ADK, A2A, and MCP - Agents in Action</title>
+      
+    
+    
+      <link rel="stylesheet" href="../assets/stylesheets/main.e53b48f4.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+    
+  </head>
+  
+  
+    <body dir="ltr">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#day-6-scaling-agents-architectures-with-google-adk-a2a-and-mcp" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href=".." title="Agents in Action" class="md-header__button md-logo" aria-label="Agents in Action" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Agents in Action
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Day 06 - Scaling Agents - Architectures with Google ADK, A2A, and MCP
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href=".." title="Agents in Action" class="md-nav__button md-logo" aria-label="Agents in Action" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    Agents in Action
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href=".." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Home
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    7-Day Agents in Action Series
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            7-Day Agents in Action Series
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../01-agents-are-here-and-they-are-staying/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Day 01 - Agents are here and they are staying
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../02-how-agents-think/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Day 02 - How Agents Think
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../03-memory-the-agents-brain/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Day 03 - Memory - The Agent's Brain
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../04-agentic-rag-ecosystem/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Day 04 - Agentic RAG Ecosystem
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../05-multimodal-agents/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Day 05 - Multimodal Agents
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    Day 06 - Scaling Agents - Architectures with Google ADK, A2A, and MCP
+    
+  </span>
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    Day 06 - Scaling Agents - Architectures with Google ADK, A2A, and MCP
+    
+  </span>
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#do-you-think-you-know-mcp" class="md-nav__link">
+    <span class="md-ellipsis">
+      Do you think you know MCP?
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#welcome-to-day-6-of-the-7-day-agents-in-action-series" class="md-nav__link">
+    <span class="md-ellipsis">
+      Welcome to Day 6 of the 7-Day Agents in Action Series.
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../07-fully-functional-agent-loop/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Day 07 - Fully Functional Agent Loop
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    10-Day Agents in Action Series
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            10-Day Agents in Action Series
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../day-1-from-llms-to-ai-agents.md" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Day 01 - From LLMs to AI Agents
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../day-2-building-your-first-ai-sales-agent.md" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Day 02 - Building Your First AI Sales Agent
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../day-3-linkedin-to-youtube-agent.md" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Day 03 - An Agent that Builds LinkedIn Posts Directly from YouTube Videos
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../day-4-the-unofficial-airbnb-ai-agent.md" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Day 04 - The Unofficial Airbnb AI Agent
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../day-5-sales-prospect-and-deep-research-finance-agent.md" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Day 05 - Build a Sales Prospect and A Deep Research Finance Agent
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../day-6-the-ultimate-ai-research-assistant.md" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Day 06 - The Ultimate AI Research Assistant
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../day-7-the-ultimate-ai-finance-agent.md" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Day 07 - The Ultimate AI Finance Agent
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../day-8-the-ultimate-ai-blog-post-agent.md" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Day 08 - The Ultimate AI Blog Post Agent
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#do-you-think-you-know-mcp" class="md-nav__link">
+    <span class="md-ellipsis">
+      Do you think you know MCP?
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#welcome-to-day-6-of-the-7-day-agents-in-action-series" class="md-nav__link">
+    <span class="md-ellipsis">
+      Welcome to Day 6 of the 7-Day Agents in Action Series.
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+
+<h1 id="day-6-scaling-agents-architectures-with-google-adk-a2a-and-mcp">Day 6: Scaling Agents: Architectures with Google ADK, A2A, and MCP</h1>
+<h3 id="do-you-think-you-know-mcp">Do you think you know MCP?</h3>
+<p><a href="https://github.com/hamzafarooq"><strong>Hamza Farooq</strong></a> and <a href="https://github.com/JayaRajwani"><strong>Jaya Rajwani</strong></a></p>
+<h2 id="welcome-to-day-6-of-the-7-day-agents-in-action-series">Welcome to Day 6 of the 7-Day Agents in Action Series.</h2>
+<p>Hi again!</p>
+<p>I’m <a href="https://www.linkedin.com/in/hamzafarooq/">Hamza</a>, joined once again by <a href="https://www.linkedin.com/in/jayarajwani/">Jaya</a> — and today, we’re stepping into the build phase.</p>
+<p>If you like this series, we’d love you to have you in our course for AI Agents for Enterprise course on <a href="https://maven.com/boring-bot/ml-system-design">Maven</a> and be a part of something bigger and join hundreds of builders to develop enterprise level agents.</p>
+<p>Now back to the course:</p>
+<p>Over the last five days, we’ve set the foundation. We explored how agents evolved from GenAI (<a href="link">Day 1</a>), how they think and reason (<a href="link">Day 2</a>), how they remember through different types of memory (<a href="link">Day 3</a>), how they access real-time knowledge via retrieval (<a href="link">Day 4</a>), and how they extend their intelligence beyond text through multimodality (<a href="link">Day 5</a>).</p>
+<p>But agents don’t live in isolation. In the real world, they need to talk to other agents, access external tools, and operate safely at scale.</p>
+<p><img alt="Agent Communication" src="../images/agent-communication.png" /></p>
+<p>
+  <em>Source: <a href="https://medium.com/fundamentals-of-artificial-intellegence/agent-to-agent-a2a-protocol-e001d480b41c">Agent Communication example</a></em>
+</p>
+
+<p>In this article, we will explore how Google is shaping this with its Agent Development Kit (ADK), the Agent-to-Agent (A2A) protocol, and the Model Communication Protocol (MCP). These are not just tools - they represent a shift in how agents are designed, orchestrated, and deployed in real-world systems.</p>
+<p>We will also unpack how these components work together to build scalable, modular, and secure agentic infrastructure.</p>
+<h1 id="building-agents-with-google-agent-development-kit-adk"><strong>Building Agents with Google Agent development kit (ADK)</strong></h1>
+<p><img alt="Google ADK" src="../images/google-adk.png" /></p>
+<p>
+  <em>Source: <a href="https://google.github.io/adk-docs/">Google Agent Development Kit</a></em>
+</p>
+
+<p>Let’s start with the question behind every serious AI project:</p>
+<p>How do we go from a clever demo to a reliable, reusable agent?</p>
+<p>Because here’s the truth: most GenAI agents today are just dressed-up prompts. They might look smart in a single interaction, but they break down quickly when you need structure, memory, collaboration, or consistency.</p>
+<p>That’s where Google’s Agent Development Kit (ADK) comes in, a production-grade framework built to help you move beyond hacks and experiments. ADK gives you the building blocks to create agents that can plan, act, and scale — not just respond.</p>
+<p>At its core is the BaseAgent class - a flexible template you can extend to define how your agent reasons, remembers, and decides what to do next. But ADK goes much further: it supports tool use, multi-agent coordination, streaming, memory modules, and evaluation, all with a developer experience that’s actually pleasant.</p>
+<p><img alt="Primary Agent Types" src="../images/primary-agent-types.png" /></p>
+<p>
+  <em>Source: <a href="https://google.github.io/adk-docs/agents/">https://google.github.io/adk-docs/agents/</a></em>
+</p>
+
+<p>Think of ADK as your workbench for real-world agent systems.</p>
+<p>Not just one chatbot. Not just one clever workflow. A foundation for building intelligent systems that can collaborate, adapt, and operate with guardrails in place.</p>
+<h1 id="core-pillars-of-adk"><strong>Core Pillars of ADK</strong></h1>
+<p>ADK provides capabilities across the entire agent development lifecycle:</p>
+<ul>
+<li><strong>Multi-Agent by Design</strong> – Modular, hierarchical agent composition</li>
+<li><strong>Model Flexibility</strong> – Works with Gemini, Vertex AI, LiteLLM, and more</li>
+<li><strong>Tool Ecosystem</strong> – Supports MCP tools, LangChain, LlamaIndex, etc.</li>
+<li><strong>Built-in Streaming</strong> – Audio/video streaming for multimodal interaction</li>
+<li><strong>Flexible Orchestration</strong> – Sequential, parallel, loop, or dynamic flows</li>
+<li><strong>Dev Experience</strong> – Local CLI + visual UI for testing and debugging</li>
+<li><strong>Built-in Evaluation</strong> – Assess final outputs and intermediate steps</li>
+<li><strong>Easy Deployment</strong> – Container-ready for any environment</li>
+</ul>
+<p>For more information and docs on ADK, reference the github: <a href="https://google.github.io/adk-docs/">https://google.github.io/adk-docs/</a></p>
+<h1 id="acting-in-the-world-model-context-protocol-mcp"><strong>Acting in the World: Model Context Protocol (MCP)</strong></h1>
+<p>Now that you’ve built an agent with ADK, how do you let it interact with the real world?</p>
+<p>Imagine your agent needs to call a Stripe API, run a SQL query, or access your file system. These are straightforward for a human developer. But for a language model, even a capable one, public APIs are inaccessible without help.</p>
+<p>This is where the Model Communication Protocol (MCP) comes in. MCP acts as a standardized bridge between agents and tools. It wraps APIs, databases, and local services in a format that agents can understand and safely call. Think of it like an adapter — instead of teaching an agent the details of every single API, MCP lets you plug in pre-wrapped tools that just work.</p>
+<p>In a nutshell, what MCP does is:</p>
+<ul>
+<li>Standardizes agent-tool communication</li>
+<li>Secure external access</li>
+<li>Plug-and-play tool integration</li>
+</ul>
+<h2 id="core-components-of-mcp"><strong>Core Components of MCP</strong></h2>
+<p>Following are the core components of MCP:</p>
+<ul>
+<li><strong>MCP Hosts</strong>: Programs like Claude Desktop, IDEs, or AI tools that want to access data through MCP</li>
+<li><strong>MCP Clients</strong>: Protocol clients that maintain 1:1 connections with servers</li>
+<li><strong>MCP Servers</strong>: Lightweight programs that each expose specific capabilities through the standardized Model Context Protocol</li>
+<li><strong>Local Data Sources</strong>: Your computer’s files, databases, and services that MCP servers can securely acces</li>
+<li><strong>Remote Services</strong>: External systems available over the internet (e.g., through APIs) that MCP servers can connect to</li>
+</ul>
+<p><img alt="MCP Components" src="../images/mcp-components.png" /></p>
+<p>
+  <em>Source: <a href="https://modelcontextprotocol.io/docs/getting-started/intro">https://modelcontextprotocol.io/docs/getting-started/intro</a></em>
+</p>
+
+<h2 id="how-is-mcp-different-from-standard-api"><strong>How is MCP Different from Standard API?</strong></h2>
+<p>The main difference between MCPs and APIs lies in who they’re meant for:</p>
+<ul>
+<li>APIs are built for developers. They expose data or services, but they assume the person using them knows how to write code, format requests, handle errors, etc.</li>
+<li>For an AI agent (like an LLM) to use a public API, it needs a wrapper built by a developer first, which explains:</li>
+<li>how to call the API</li>
+<li>what the input/output should look like</li>
+<li>and how to handle the response.</li>
+</ul>
+<p>MCPs are designed for LLMs to call APIs without extra setup, whereas APIs require a developer to build that tool manually. MCPs act as wrappers around APIs, helping LLMs understand how to call them.</p>
+<h2 id="mcp-limitations"><strong>MCP Limitations</strong></h2>
+<p>While MCP is a standard to call tools for an LLM instead of formatting data for an API, it also has it’s own limitations:</p>
+<ul>
+<li><strong>Limited responses</strong>: If an API only returns 100 results per call (e.g., Stripe transactions or customers), an MCP won’t know to paginate, so it will most likely miss key data.</li>
+<li><strong>High costs for historical data</strong>: MCPs make on-the-fly API requests, so pulling 12 months of data (if it can figure out how to) eats up context window + cost fast.</li>
+<li>You can only use one MCP at a time, meaning LLMs struggle to combine multiple data sources.</li>
+</ul>
+<p>Despite the limitations, MCP is a powerful step toward turning agents into <em>doers</em>, not just <em>talkers</em>.</p>
+<h2 id="working-in-teams-agent2agent-a2a-protocol"><strong>Working in teams: Agent2Agent (A2A) Protocol</strong></h2>
+<p>What happens when you have not just one agent, but many?</p>
+<p>Let’s say one agent specializes in retrieving data, another in summarizing it, and a third in masking sensitive content. You now have a team. But how do they talk to each other? That’s the problem A2A (Agent-to-Agent Protocol) solves.</p>
+<p>A2A is a communication protocol that allows agents to collaborate securely, predictably, and efficiently — all without sharing memory or internal reasoning. It’s like giving each agent a walkie-talkie and shared task language, so they can coordinate without stepping on each other’s toes.</p>
+<p>Built on familiar web standards like HTTP and JSON-RPC 2.0, A2A allows agents to:</p>
+<ul>
+<li>Send tasks and receive results in structured formats</li>
+<li>Handle long-running operations</li>
+<li>Work across modalities like text, video, or even form inputs</li>
+<li>Securely authenticate with each other in enterprise environments</li>
+</ul>
+<p>Instead of coding logic that chains agents together manually, A2A lets each agent operate independently but still collaborate like members of a team.</p>
+<p><img alt="A2A Protocol" src="../images/a2a-protocol.png" /></p>
+<h2 id="a2a-design-principles"><strong>A2A Design Principles</strong></h2>
+<p>A2A is an open protocol that provides a standard way for agents to collaborate with each other, regardless of the underlying framework or vendor. While designing the protocol with our partners, we adhered to five key principles:</p>
+<ul>
+<li><strong>Agent-first</strong> – Enables true collaboration between agents, even without shared memory or tools</li>
+<li><strong>Standards-based</strong> – Built on HTTP, SSE, and JSON-RPC for easy integration</li>
+<li><strong>Secure by Default</strong> – Supports enterprise-grade auth aligned with OpenAPI standards</li>
+<li><strong>Long Task Support</strong> – Handles everything from fast actions to multi-hour human-in-the-loop workflows</li>
+<li><strong>Modality Agnostic</strong> – Designed for text, audio, video, and more — not just chat</li>
+</ul>
+<h1 id="putting-it-all-together-a-real-world-flow"><strong>Putting It All Together: A Real-World Flow</strong></h1>
+<p>Let’s walk through a real system that combines ADK, MCP, and A2A. Imagine a user sends a request:</p>
+<p><strong>“Find our top customers from last quarter and make sure no PII is exposed.”</strong></p>
+<p>Here’s how it plays out:</p>
+<ul>
+<li>A client sends a request to your A2A server</li>
+<li>A2A routes the task to a security pipeline before executing it:</li>
+<li>Input Validation Layer (outside LLM)</li>
+<li>Model Armor checks for: Prompt injection, Malicious sources, DDoS, web attacks</li>
+<li>Agent Judge (ADK agent with tool access): Uses 270+ regex rules to detect anomalies and if found conversation is terminated</li>
+<li>A2A then calls call_sql_agent()</li>
+<li>This invokes the SQL Agent (ADK agent using MCP tools): Infers database schema, Constructs SQL query, Returns result</li>
+<li>Output is sent to the Mask Agent:</li>
+<li>Uses Google Cloud DLP API to redact/mask sensitive data (e.g., names, IDs)</li>
+<li>Final masked result is returned: MCP → ADK → A2A → Client</li>
+</ul>
+<p><img alt="MCP-ADK-A2A" src="../images/mcp-adk-a2a.png" /></p>
+<h1 id="next-up-your-first-full-agent-system-begins-8th-october"><strong>Next Up: Your First Full Agent System - Begins 8th October</strong></h1>
+<p>You have seen the pieces — planning, memory, retrieval, tools, collaboration. Now it’s time to bring it all together.</p>
+<p>In the final day of this series, we will build a complete agent from scratch - one that thinks, remembers, retrieves, and takes action. You will learn how to wire up the control loop, plug in external tools, and coordinate across agents like a real system architect.</p>
+<p><strong>Ready to ship something real?</strong></p>
+<p><img alt="AI Bootcamp" src="../images/ai-bootcamp.png" /></p>
+<p>If you like this series, you should check out my AI Agents for Enterprise course on <a href="https://maven.com/boring-bot/ml-system-design">Maven</a> and be a part of something bigger and join hundreds of builders to develop enterprise level agents.</p>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      <script id="__config" type="application/json">{"base": "..", "features": [], "search": "../assets/javascripts/workers/search.973d3a69.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+    
+    
+      <script src="../assets/javascripts/bundle.f55a23d4.min.js"></script>
+      
+    
+  </body>
+</html>
