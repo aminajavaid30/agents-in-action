@@ -1,65 +1,131 @@
-# 🤖 Agents in Action
+# Agents in Action
+🚀 **Build AI Agents Like a Pro!**
 
-Welcome to **Agents in Action** — the central open-source playground for building full-stack AI Agents 🚀
+Welcome to the Open Sourced version of my course on AI Agents.
 
-This repo is where we share **real, working agent projects** from our live courses and workshops, including:
-- 🔗 Frontend interfaces
-- ⚙️ Backend logic
-- 🔁 Automation flows using **n8n**
-- 📦 MCP server + webhooks
-- 🛠️ Example datasets, prompts, and use-case templates
+This course is one of the top-rated courses on building AI Agents using no-code/low-code tools. So far, I’ve taught this course to over 1500 professionals, at MAVEN, Stanford, UCLA and University of Minnesota, helping them gain a deep understanding of the levels of agentic architecture, enterprise-grade Retrieval Augmented Generation (RAG), and open source agentic products deployment.
 
-Whether you're building a Sales Prospecting Agent, a Research Assistant, or a Knowledge Graph-powered Analyst — this is your go-to lab.
+Unlike most courses, this course teaches you how to think about solving real-world problems using agentic AI combined with no-code tools and enabling you to design, build, and deploy your own custom AI products and solutions.
 
 ---
 
-## 🧩 What's Inside?
-
-| Project | Stack | Description |
-|---------|-------|-------------|
-| `airbnb-agent/` | React + n8n | Search for your perfect Airbnb stay using AI and automation |
-| `blog_post_agent/` | n8n + AI | Automated blog post generation with deep research sub-workflow |
-| `sales-porspects-agent/` | n8n + AI | Build Ideal Customer Profiles and automate sales prospecting |
-| `workflow_creator/` | n8n | Visual workflow creator and manager for automation projects |
-| `youtube-to-linkedin/` | n8n + React | Turn YouTube videos into LinkedIn posts with human review |
-
-> 💡 Each folder contains frontend code, backend logic, prompt structure, and ready-to-import n8n flows (`.json` files)
-
----
-
-## 📚 Learn While You Build
-
-All projects here are part of the [**"Building GenAI Agents for Enterprise: Beyond the Hype"**](https://maven.com/boring-bot/advanced-llm) course on Maven — a hands-on, code-first program where 10,000+ learners have already joined us to:
-
-- Build autonomous, multi-agent systems
-- Learn MCP, ADK, and Agent-to-Agent (A2A) orchestration
-- Deploy private LLMs & quantized models
-- Construct knowledge graphs & semantic pipelines
-
-### 🔥 **New Cohort Starting Soon**
-Use promo code `MAVEN100` to join now →
-👉 [**Enroll here**](https://maven.com/boring-bot/advanced-llm?promoCode=MAVEN100)
+## 📌 Learning Outcomes
+- Gain a comprehensive understanding of Large Language Models (LLMs)
+- Understand the applications of GenAI in organizations
+- Learn about AI Product Life Cycle
+- Understand AI Agents and Levels of Agentic Architecture
+- Prompt Engineering and Context Engineering
+- Tools deep dive: n8n and no-code workflows
+- Integrating frontend interfaces with n8n
+- Construct and deploy real-world applications using No-code tools
+- Model Context Protocol (MCP)
+- Building full-stack AI Agents with MCP
+- Understanding reasoning agents that can think and plan
+- Learn about Guardrails and fine-tuning
 
 ---
 
-## 🧠 Contribute
+## 📢 Who is This Course For?
+This course has no prerequisites. It is for everyone who is willing to learn about AI Agents and wants to build and deploy their own AI products.
 
-We welcome community builds! If you've worked on an interesting agent, automation, or frontend workflow:
-- Fork this repo
-- Submit a pull request with a new project folder
-- Add clear README + `n8n` file + code/demo
+📌 What You’ll Learn:
 
-Let’s build the agentic internet — together.
+✔ Agents and levels of agentic architecture 
+
+✔ Applications of GenAI in organizations
+
+✔ Use of no-code tools including n8n
+
+✔ Deploy you own AI agents and solutions 
+
+✔ Address safety and security in AI applications 
 
 ---
 
-## 📬 Stay in the Loop
+## 📚 What’s Included?
+✅ 6 in-depth modules covering Ai agents and their practical application
 
-Follow [@hamzafarooq](https://www.linkedin.com/in/hamzafarooq/) on LinkedIn
-📬 Subscribe to the **Agents in Action** newsletter → [Join here](https://boringbot.substack.com)
+✅ 5 tutorials to get started with n8n
+
+✅ 12 real-world AI agents with code and documentation
+
+✅ Interactive live sessions and direct instructor access
+
+✅ Guided feedback & reflection
+
+✅ Private community of peers
+
+✅ Certificate upon completion
 
 ---
 
-## License
+## 📢 Attribution & Credits
+If you use my course material, content, or research in your work, please credit me and the respective contributors.
 
-APACHE 2.0 License — use, remix, and deploy freely (with attribution)
+🔹 Proper citation format:
+
+Farooq, H. (2025). *AI Bootcamp: Generative AI Beyond the Hype*
+
+📌 Tagging & mentions are always appreciated! 😊
+
+## 📅 Course Syllabus
+### Week 1: Building Agents from Scratch
+- The GenAI revolution
+- Large Language Models (LLMs)
+- Applications of GenAI in organizations
+- AI Product Lifecycle
+- Learn about Agents
+- Levels of Agentic architecture 
+### Week 2: Build and Test Your First Agent
+- Crafting Effective Prompts
+- Context Engineering
+- Evaluating LLMs and Agents
+- Tools Deep Dive: n8n and No-Code Workflows
+- Build a Sales Prospecting Agent 
+### Week 3: Building Full Stack Agents
+- Integrating Frontend Interfaces with n8n
+- Model Context Protocol (MCP)
+- Build a Travel Agent using MCP
+- Understanding Retrieval Augmented Generation (RAG)
+- Build a Full Stack Search Agent
+### Week 4: Design Complex Agentic Workflows
+- Explore n8n extended capabilities
+- Integrate APIs for Internet Search and RAG
+- Understanding Reasoning Agents that can Think and Plan
+- Build Agents with Memory
+### Week 5: Building Agents with Safety and Securityvs RAG
+- implementing Guardrails
+- Compare Fine-tuning vs RAG
+- Deep dive into a Traversaal Case Study
+- Start Thinking about Your Capstone Project
+### Week 6: Build Your Own AI Agent
+- Choose a Real-World Problem
+- Discuss Your Idea
+- Get Feedback
+- Build and Deploy Your Capstone Project
+
+🎉 Post-Course: Demo Day – Present your final project!
+
+---
+
+## ⭐ What Students Are Saying
+*"Hamza was incredibly available and supportive throughout the course. His guidance on the capstone kept me focused and his framework for thinking about agentic AI use cases is something I’ve already started applying in my day-to-day work. Highly recommend."*
+
+**Valisha**, *Head of Product Strategy*
+
+*"This course really stands out from all the agentic courses out there. Most courses focus on learning theories, or building prototypes, but with this course I can build agentic systems serving my daily life and 10X my productivity."*
+
+**Chilann**, *Product Manager*
+
+*"Having taken several of Hamza's courses (including his LLM Agentic RAG Developer's Edition), I came to this No-Code/Low-Code course eager to expand my toolkit — and it absolutely delivered! This course was simply eye-opening for someone accustomed to traditional build processes. The game-changer: Learning to achieve "Visual Confirmation" with stakeholders in hours, not weeks."*
+
+**Kurt**, *Co-Founder*
+
+## 🔥 Why Take This Course?
+Unlike most AI courses, this course teaches you how to solve a real-world problem usng AI agents with no-code/low-code approach and launch your own startup.
+
+By the end, you’ll be able to:
+
+✅ Build highly Agentic AI applications
+
+✅ Deploy cost-efficient and scalable AI solutions
