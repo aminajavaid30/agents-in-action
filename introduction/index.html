@@ -1,0 +1,1476 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+      
+        <link rel="prev" href="..">
+      
+      
+        <link rel="next" href="../from-llms-to-ai-agents/">
+      
+      
+        
+      
+      
+      <link rel="icon" href="../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.0">
+    
+    
+      
+        <title>Introduction - Agents in Action</title>
+      
+    
+    
+      <link rel="stylesheet" href="../assets/stylesheets/main.618322db.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    <body dir="ltr">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#agents-in-action" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href=".." title="Agents in Action" class="md-header__button md-logo" aria-label="Agents in Action" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Agents in Action
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Introduction
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href=".." title="Agents in Action" class="md-nav__button md-logo" aria-label="Agents in Action" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    Agents in Action
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href=".." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Why we built this course
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Introduction
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Introduction
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#learning-outcomes" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        📌 Learning Outcomes
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#who-is-this-course-for" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        📢 Who is This Course For?
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="📢 Who is This Course For?">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#what-youll-learn" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        📌 What You’ll Learn:
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#whats-included" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        📚 What’s Included?
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#course-syllabus" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        📅 Course Syllabus
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#why-take-this-course" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🔥 Why Take This Course?
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#what-students-are-saying" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        ⭐ What Students Are Saying
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#attribution-credits" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        📢 Attribution &amp; Credits
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#contributors" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🧑‍💻 Contributors
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#contribute" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🧠 Contribute
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#stay-in-the-loop" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        📬 Stay in the Loop
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#license" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        License
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#ready-to-level-up" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🎓 Ready to Level-Up?
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../from-llms-to-ai-agents/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 01 - From LLMs to AI Agents
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../agents-are-here-and-they-are-staying/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 02 - Agents are Here and They are Staying
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5" >
+        
+          
+          <label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 03 - n8n - Build Your First End-to-End Agent
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Chapter 03 - n8n - Build Your First End-to-End Agent
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lovable/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    3a. Introducing Lovable
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../meet-n8n/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    3b. Introducing n8n and Building Your First Workflow
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../lovable-webhook-n8n/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    3c. Connecting n8n and Lovable via Webhooks
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../sales-agent-to-find-the-right-customer/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 04 - Sales Agent to Find the Right Customer
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../chatbot-that-knows-your-docs/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 05 - Build a Chatbot that Knows Your Documents
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../your-own-perplexity-clone/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 06 - Build Your Own Perplexity Clone
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../supabase-rag-with-memory/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 07 - Teach Your RAG Agent to Remember
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../book-companion-voice-rag-agent/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 08 - Give Your Book A Voice - The AI Assisted Edition
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../youtube-to-linkedin-agent/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 09 - Automate Your Content - YouTube to LinkedIn Agent
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../the-unofficial-airbnb-ai-agent/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 10 - The Unofficial AirBnb AI Agent
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../linkedin-post-human-in-the-loop/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 11 - LinkedIn Human in the Loop Agent
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../the-ultimate-ai-blog-post-agent/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 12 - The Ultimate AI Blog Post Agent
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../travel-agent/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 13 - Fully Functional Agent Loop - Travel-Agent
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../the-ultimate-ai-research-assistant/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 14 - Intelligent Research - The Ultimate AI Research Assistant
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../the-ultimate-ai-finance-agent/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 15 - Investment Intelligence - The Ultimate AI Finance Agent
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../workflow-creator/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Chapter 16 - Agent that Creates Other Agents
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#learning-outcomes" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        📌 Learning Outcomes
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#who-is-this-course-for" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        📢 Who is This Course For?
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="📢 Who is This Course For?">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#what-youll-learn" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        📌 What You’ll Learn:
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#whats-included" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        📚 What’s Included?
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#course-syllabus" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        📅 Course Syllabus
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#why-take-this-course" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🔥 Why Take This Course?
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#what-students-are-saying" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        ⭐ What Students Are Saying
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#attribution-credits" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        📢 Attribution &amp; Credits
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#contributors" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🧑‍💻 Contributors
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#contribute" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🧠 Contribute
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#stay-in-the-loop" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        📬 Stay in the Loop
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#license" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        License
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#ready-to-level-up" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        🎓 Ready to Level-Up?
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+
+<h1 id="agents-in-action">Agents in Action</h1>
+<p>🚀 <strong>Build AI Agents Like a Pro!</strong></p>
+<p>Welcome to my course on AI Agents.</p>
+<p>This course is one of the top-rated courses on building AI Agents using no-code/low-code tools. So far, I’ve taught this course to over 1500 professionals, at MAVEN, Stanford Continuing Studies, UCLA and University of Minnesota, helping them gain a deep understanding of the levels of agentic architecture, enterprise-grade Retrieval Augmented Generation (RAG), and open source agentic products deployment.</p>
+<p>Unlike most courses, this course teaches you how to think about solving real-world problems using agentic AI combined with no-code tools and enabling you to design, build, and deploy your own custom AI products and solutions.</p>
+<hr />
+<h2 id="learning-outcomes">📌 Learning Outcomes</h2>
+<p>By the end of this series, you will be able to:</p>
+<ol>
+<li><strong>Understand the evolution of AI agents</strong> — from Large Language Models (LLMs) to autonomous, tool-using systems capable of reasoning, memory, and planning.</li>
+<li><strong>Master n8n as a no-code AI automation platform</strong>, learning to build, connect, and orchestrate intelligent workflows visually.</li>
+<li><strong>Use webhooks to connect frontends and backends</strong>, enabling real-time, two-way communication between users and AI systems.</li>
+<li><strong>Design and deploy full-stack AI agents for real-world applications</strong> — including chatbots, sales assistants, research tools, and content automation systems.</li>
+<li><strong>Implement Retrieval-Augmented Generation (RAG)</strong> for document-aware chatbots and knowledge-driven agents.</li>
+<li><strong>Add long-term memory and context retention to AI workflows</strong> using databases like Supabase for personalization and persistence.</li>
+<li><strong>Integrate voice, UI, and API tools</strong> to create multimodal, interactive AI experiences that go beyond text-based interaction.</li>
+<li><strong>Automate real-world processes</strong> (e.g., lead generation, content publishing, research synthesis) with AI-human collaboration loops.</li>
+<li><strong>Build and evaluate advanced agentic</strong> systems that combine reasoning loops, internet search, and multi-tool orchestration.</li>
+<li><strong>Create a meta-agent that builds other agents</strong>, gaining the ability to auto-generate, configure, and deploy intelligent workflows from within n8n itself.</li>
+</ol>
+<hr />
+<h2 id="who-is-this-course-for">📢 Who is This Course For?</h2>
+<p>No prerequisites. Just curiosity.</p>
+<p>Agents in Action is for anyone who wants to learn, build, and launch AI agents — without writing complex code.</p>
+<p>You’ll discover how LLMs evolve into full AI agents, use Lovable to create frontends, use n8n to automate workflows, connect webhooks and APIs, and deploy real-world systems — from chatbots and sales agents to voice assistants and research tools.</p>
+<p><code>Build confidently, think agentically, and bring your own AI products to life.</code></p>
+<p>Whether you’re a developer, product manager, researcher, or simply an AI enthusiast — Agents in Action will take you from understanding the basics of LLMs to creating full-stack, production-ready AI workflows.</p>
+<h3 id="what-youll-learn">📌 What You’ll Learn:</h3>
+<p>✔ The evolution of <strong>AI Agents</strong> — from LLMs to autonomous, tool-using systems</p>
+<p>✔ Core concepts of <strong>agentic architecture</strong> — memory, planning, and tool integration</p>
+<p>✔ Real-world <strong>GenAI applications</strong> across sales, research, content, and automation</p>
+<p>✔ Building intelligent workflows with <strong>no-code tools</strong> like n8n and Lovable</p>
+<p>✔ Using <strong>webhooks and APIs</strong> to connect backends and frontends</p>
+<p>✔ Designing <strong>RAG-powered chatbots</strong> and voice-enabled agents</p>
+<p>✔ Implementing <strong>memory, reasoning, and human-in-the-loop</strong> systems</p>
+<p>✔ Deploying and scaling your own <strong>AI products and solutions</strong></p>
+<p>✔ Ensuring <strong>safety, security, and reliability</strong> in agentic AI applications</p>
+<hr />
+<h2 id="whats-included">📚 What’s Included?</h2>
+<p>✅ <strong>16 hands-on chapters</strong> — from AI fundamentals to full-stack agent deployment</p>
+<p>✅ <strong>Step-by-step projects covering real-world AI agents</strong>:
+Chatbots • Sales Agents • Voice Assistants • Research Tools • Workflow Builders</p>
+<p>✅ <strong>Ready-to-run n8n workflows</strong> with complete documentation and GitHub repos</p>
+<p>✅ <strong>No-code + low-code tutorials</strong> to help you connect APIs, webhooks, and frontends</p>
+<hr />
+<h2 id="course-syllabus">📅 Course Syllabus</h2>
+<table>
+<thead>
+<tr>
+<th>Chapter</th>
+<th>Title</th>
+<th>Overview</th>
+<th>Workflow</th>
+<th>Video</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Introduction</td>
+<td><a href="https://aminajavaid30.github.io/agents-in-action/">Why we built this course?</a></td>
+<td>We built <strong>Agents in Action</strong> to demystify AI agents and show that anyone, not just developers, can build, understand, and deploy intelligent systems using simple, no-code tools like n8n and Lovable.</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>1</td>
+<td><a href="https://aminajavaid30.github.io/agents-in-action/from-llms-to-ai-agents/">From LLMs to AI Agents</a></td>
+<td>Discover how Large Language Models evolve into fully functional AI agents. Learn the core pillars—memory, tools, and planning loops—that transform passive chatbots into proactive, autonomous digital workers capable of thinking, acting, and learning.</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>2</td>
+<td><a href="https://aminajavaid30.github.io/agents-in-action/agents-are-here-and-they-are-staying/">Agents are Here and They are Staying</a></td>
+<td>Explore how AI is evolving from generating answers to taking actions — marking the dawn of intelligent, tool-using agents that think, plan, and execute real-world tasks.</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>3</td>
+<td>Build Your First End-to-End Agent</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td>3a. <a href="https://aminajavaid30.github.io/agents-in-action/meet-n8n/">Introducing Lovable</a></td>
+<td>Meet Lovable, a lightweight and customizable frontend that brings your n8n agents to life — enabling real-time, conversational interfaces where users can chat, interact, and experience your AI workflows seamlessly.</td>
+<td><a href="https://github.com/aminajavaid30/agents-in-action/tree/main/401-all-in-one-lovable">All-In-One-Lovable</a></td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td>3b. <a href="https://aminajavaid30.github.io/agents-in-action/meet-n8n/">Introducing n8n &amp; Building Your First Workflow</a></td>
+<td>Get to know n8n, the open-source automation platform that powers your AI workflows. Understand its interface, triggers, nodes, and how it becomes the perfect no-code playground for building your first AI agent.</td>
+<td><a href="https://github.com/aminajavaid30/agents-in-action/tree/main/101-hello-n8n">Hello n8n</a></td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td>3c. <a href="https://aminajavaid30.github.io/agents-in-action/meet-n8n/">Connecting n8n &amp; Lovable via Webhooks</a></td>
+<td>Learn how to connect Lovable with n8n using webhooks — enabling your no-code frontend apps to seamlessly trigger automated workflows, AI actions, or backend logic with just a single event.</td>
+<td><a href="https://github.com/aminajavaid30/agents-in-action/tree/main/201-basic-webhook">Basic Webhook</a>, <a href="https://github.com/aminajavaid30/agents-in-action/tree/main/301-lovable-webhook-n8n">301-lovable-webhook-n8n</a></td>
+<td></td>
+</tr>
+<tr>
+<td>4</td>
+<td><a href="https://aminajavaid30.github.io/agents-in-action/sales-agent-to-find-the-right-customer/">Sales Agent to Find the Right Customer with AI</a></td>
+<td>Build your first real-world AI Sales Agent using n8n — an automated system that researches, qualifies, and reaches out to high-potential leads, turning your ICP into actionable sales intelligence.</td>
+<td><a href="https://github.com/aminajavaid30/agents-in-action/tree/main/sales-porspects-agent">Sales Prospects Agent</a></td>
+<td></td>
+</tr>
+<tr>
+<td>5</td>
+<td><a href="https://aminajavaid30.github.io/agents-in-action/chatbot-that-knows-your-documents/">Build a Chatbot that Knows Your Documents</a></td>
+<td>Build a document-aware chatbot using n8n, OpenRouter, and RAG — an intelligent Product Management Agent that retrieves contextual answers, remembers conversations, and adapts responses based on prompt clarity and topic relevance.</td>
+<td><a href="https://github.com/aminajavaid30/agents-in-action/tree/main/chatbot-that-knows-your-documents">Chatbot that Knows Your Docs</a></td>
+<td></td>
+</tr>
+<tr>
+<td>6</td>
+<td><a href="https://aminajavaid30.github.io/agents-in-action/build-your-own-perplexity-clone/">Build Your Own Perplexity Clone</a></td>
+<td>Build your own Perplexity-style AI agent using n8n, combining RAG, Internet Search, and smart tool routing to answer AWS-related questions — retrieving from your S3 knowledge base, searching the web for fresh info, and gracefully declining out-of-scope queries.</td>
+<td><a href="https://github.com/aminajavaid30/agents-in-action/tree/main/your-own-perplexity-clone">Your Own Perplexity Clone</a></td>
+<td></td>
+</tr>
+<tr>
+<td>7</td>
+<td><a href="https://aminajavaid30.github.io/agents-in-action/supabase-rag-with-memory/">Teach your RAG Agent to Remember</a></td>
+<td>Teach your RAG Agent to think, remember, and respond like a pro — this workflow adds persistent memory to your Retrieval-Augmented Generation chatbot, enabling it to recall past conversations while grounding answers in your document knowledge base.</td>
+<td><a href="https://github.com/aminajavaid30/agents-in-action/tree/main/supabase-rag">RAG Agent with Memory</a></td>
+<td></td>
+</tr>
+<tr>
+<td>8</td>
+<td><a href="https://aminajavaid30.github.io/agents-in-action/book-companion-voice-rag-agent/">Give Your Book a Voice - The AI Assistant Edition</a></td>
+<td>Give your book a voice with this AI-powered Voice RAG Agent — a full-stack, speech-to-speech assistant that lets readers talk to your book in real time, combining n8n, Supabase, and React for intelligent, voice-driven knowledge retrieval.</td>
+<td><a href="https://github.com/aminajavaid30/agents-in-action/tree/main/book-companion-voice-rag-agent">Your Book's Voice Companion</a></td>
+<td></td>
+</tr>
+<tr>
+<td>9</td>
+<td><a href="https://aminajavaid30.github.io/agents-in-action/youtube-to-linkedin-agent/">Automate Your Content - YouTube to LinkedIn with AI</a></td>
+<td>Automate your content workflow with a YouTube-to-LinkedIn AI Agent that transforms videos into engaging LinkedIn posts — combining transcription, content generation, human review, and publishing to scale your personal brand effortlessly.</td>
+<td><a href="https://github.com/aminajavaid30/agents-in-action/tree/main/youtube-to-linkedin">YouTube to LinkedIn</a></td>
+<td></td>
+</tr>
+<tr>
+<td>10</td>
+<td><a href="https://aminajavaid30.github.io/agents-in-action/the-unofficial-airbnb-ai-agent/">The Unofficial AirBnb AI Agent</a></td>
+<td>Build the Unofficial Airbnb AI Agent — a conversational, context-aware search system powered by MCP integration, memory, and intelligent recommendations that transforms how users discover and book stays through natural language interactions.</td>
+<td><a href="https://github.com/aminajavaid30/agents-in-action/tree/main/airbnb-agent">Airbnb Agent</a></td>
+<td></td>
+</tr>
+<tr>
+<td>11</td>
+<td><a href="https://aminajavaid30.github.io/agents-in-action/linkedin-post-human-in-the-loop/">LinkedIn Human-in-the-Loop Agent</a></td>
+<td>Create a Human-in-the-Loop LinkedIn Post Agent that combines AI automation with human review, generating technically precise, style-matched LinkedIn posts from AI news feeds — ensuring every post is both insightful and on-brand before publishing.</td>
+<td><a href="https://github.com/aminajavaid30/agents-in-action/tree/main/linkedpost-human-in-the-loop">LinkedIn Human in the Loop</a></td>
+<td></td>
+</tr>
+<tr>
+<td>12</td>
+<td><a href="https://aminajavaid30.github.io/agents-in-action/the-ultimate-ai-blog-post-agent/">The Ultimate AI Blog Post Agent</a></td>
+<td>Build the Ultimate AI Blog Post Agent — a research-driven content creation system that automates deep research, article synthesis, and professional publishing, turning scattered sources into authoritative, SEO-optimized blog posts with minimal manual effort.</td>
+<td><a href="https://github.com/aminajavaid30/agents-in-action/tree/main/blog_post_agent">Blog Post Agent</a></td>
+<td></td>
+</tr>
+<tr>
+<td>13</td>
+<td><a href="https://aminajavaid30.github.io/agents-in-action/travel-agent/">Fully Functional Agent Loop - The Travel Agent</a></td>
+<td>Build a ReAct-based AI Travel Agent using n8n and MCP integration that plans complete trips from natural language input — handling flights, hotels, itineraries, calendar events, and email delivery through fully connected intelligent workflows.</td>
+<td><a href="https://github.com/aminajavaid30/agents-in-action/tree/main/travel-agent">Travel Agent</a></td>
+<td></td>
+</tr>
+<tr>
+<td>14</td>
+<td><a href="https://aminajavaid30.github.io/agents-in-action/the-ultimate-ai-research-assistant/">Intelligent Research - Build The Ultimate AI Research Assistant</a></td>
+<td>Build the Ultimate AI Research Assistant — an intelligent dual-search agent that seamlessly combines real-time internet search with private document RAG retrieval, enabling comprehensive, context-aware research and automated synthesis across multiple knowledge sources.</td>
+<td><a href="">Research Assistant</a></td>
+<td></td>
+</tr>
+<tr>
+<td>15</td>
+<td><a href="https://aminajavaid30.github.io/agents-in-action/the-ultimate-ai-finance-agent/">Investment Intelligence - Build The Ultimate AI Finance Agent</a></td>
+<td>Build the Ultimate AI Finance Agent — your intelligent financial analyst that combines real-time market research, economic trend analysis, and investment strategy generation to deliver expert, data-driven insights through a conversational interface.</td>
+<td><a href="https://github.com/aminajavaid30/agents-in-action/tree/main/finance-agent">Finance Agent</a></td>
+<td></td>
+</tr>
+<tr>
+<td>16</td>
+<td><a href="https://aminajavaid30.github.io/agents-in-action/workflow-creator/">An Agent that Creates Other Agents</a></td>
+<td>Build the Workflow Creator Agent — an intelligent automation designer that helps you visually create, configure, and manage complex n8n workflows with modular templates, reusable components, and seamless integrations.</td>
+<td><a href="https://github.com/aminajavaid30/agents-in-action/tree/main/workflow_creator">Workflow Creator</a></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="why-take-this-course">🔥 Why Take This Course?</h2>
+<p>Unlike most AI courses, this course teaches you how to solve a real-world problem using AI agents with no-code/low-code approach and launch your own startup.</p>
+<p>By the end, you’ll be able to:</p>
+<p>✅ Build highly effective Agentic AI applications</p>
+<p>✅ Deploy cost-efficient and scalable AI solutions</p>
+<h2 id="what-students-are-saying">⭐ What Students Are Saying</h2>
+<p><em>"Hamza was incredibly available and supportive throughout the course. His guidance on the capstone kept me focused and his framework for thinking about agentic AI use cases is something I’ve already started applying in my day-to-day work. Highly recommend."</em></p>
+<p><strong>Valisha</strong>, <em>Head of Product Strategy</em></p>
+<p><em>"This course really stands out from all the agentic courses out there. Most courses focus on learning theories, or building prototypes, but with this course I can build agentic systems serving my daily life and 10X my productivity."</em></p>
+<p><strong>Chilann</strong>, <em>Product Manager</em></p>
+<p><em>"Having taken several of Hamza's courses (including his LLM Agentic RAG Developer's Edition), I came to this No-Code/Low-Code course eager to expand my toolkit — and it absolutely delivered! This course was simply eye-opening for someone accustomed to traditional build processes. The game-changer: Learning to achieve "Visual Confirmation" with stakeholders in hours, not weeks."</em></p>
+<p><strong>Kurt</strong>, <em>Co-Founder</em></p>
+<h2 id="attribution-credits">📢 Attribution &amp; Credits</h2>
+<p>If you use my course material, content, or research in your work, please credit me and the respective contributors.</p>
+<p>🔹 Proper citation format:</p>
+<p>Farooq, H. (2025). <em>Agentic AI System Design for PMs</em></p>
+<p>📌 Tagging &amp; mentions are always appreciated! 😊</p>
+<h2 id="contributors">🧑‍💻 Contributors</h2>
+<ul>
+<li><a href="https://github.com/JayaRajwani">Jaya Rajwani</a></li>
+<li><a href="https://substack.com/@bhavnajain">Bhavna Jain</a></li>
+<li><a href="https://github.com/yousuf-alvi">Yousuf Alvi</a></li>
+<li><a href="https://github.com/aminajavaid30">Amina Javaid</a></li>
+</ul>
+<h2 id="contribute">🧠 Contribute</h2>
+<p>We welcome community builds! If you've worked on an interesting agent, automation, or frontend workflow:
+- Fork this repo
+- Submit a pull request with a new project folder
+- Add clear README + <code>n8n</code> file + code/demo</p>
+<p>Let’s build the agentic internet — together.</p>
+<hr />
+<h2 id="stay-in-the-loop">📬 Stay in the Loop</h2>
+<p>Follow <a href="https://www.linkedin.com/in/hamzafarooq/">@hamzafarooq</a> on LinkedIn
+📬 Subscribe to the <strong>Agents in Action</strong> newsletter → <a href="https://boringbot.substack.com">Join here</a></p>
+<hr />
+<h2 id="license">License</h2>
+<p>APACHE 2.0 License — use, remix, and deploy freely (with attribution)</p>
+<h2 id="ready-to-level-up">🎓 Ready to Level-Up?</h2>
+<p>Join our courses on Maven and never stop learning:</p>
+<ul>
+<li>🤖 <a href="https://maven.com/boring-bot/ml-system-design">Agentic AI System Design for PMs</a></li>
+<li>💻 <a href="https://maven.com/boring-bot/advanced-llm">Agent Engineering Bootcamp: Developers Edition</a></li>
+</ul>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "..", "features": [], "search": "../assets/javascripts/workers/search.7a47a382.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+    
+    
+      <script src="../assets/javascripts/bundle.e71a0d61.min.js"></script>
+      
+    
+  </body>
+</html>
